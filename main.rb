@@ -50,6 +50,8 @@ module DCConDownload
     end
 end
 
-#Senko san S2
-#downloadDCCons(52640)
-
+if ARGV.length != 1
+    puts "Usage: ruby main.rb <dccon_number>"
+else
+    DCConDownload.downloadDCCons(ARGV[0])
+end
