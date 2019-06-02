@@ -19,7 +19,7 @@ def getDCConData(dccon_no)
     return data
 end
 
-def downloadSingleDCCon(path, ext, filename)
+def downloadSingleDCCon(path, ext, filename, filepath=nil)
     url_prefix = "https://dcimg5.dcinside.com/dccon.php?no="
     url = URI(url_prefix + path)
 
@@ -30,17 +30,20 @@ def downloadSingleDCCon(path, ext, filename)
     request["referer"] = 'https://dccon.dcinside.com/'
 
     response = http.request(request)
-    
-    File.open("#{filename}.#{ext}", "wb") { |f| f.write response.read_body }
+    if filepath
+        File.open("#{filepath}/#{filename}.#{ext}", "wb") { |f| f.write response.read_body }
+    else
+        File.open("#{filename}.#{ext}", "wb") { |f| f.write response.read_body }
+    end
     return "#{filename}.#{ext}"
 end
 
 def downloadDCCons(dccon_no)
     data = getDCConData(dccon_no)
-
+    Dir.mkdir(data["info"]["title"]) unless File.exists?(data["info"]["title"])
     cnt = 0
     data["detail"].each do |elem|
-        downloadSingleDCCon(elem["path"], elem["ext"], cnt)
+        downloadSingleDCCon(elem["path"], elem["ext"], cnt, data["info"]["title"])
         cnt += 1
     end
 end
