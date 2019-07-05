@@ -18,7 +18,13 @@ def get_dccon_data(dccon_num):
 def save_dccon(dccon_data):
     url = "https://dcimg5.dcinside.com/dccon.php"
     headers = {'referer': 'https://dccon.dcinside.com/'}
-    os.mkdir(f'/tmp/dccon')
+    if os.path.exists('/tmp/dccon'):
+        d='/tmp/dccon'
+        filesToRemove = [os.path.join(d,f) for f in os.listdir(d)]
+        for f in filesToRemove:
+            os.remove(f)
+    else:
+        os.mkdir(f'/tmp/dccon')
     with open(f'/tmp/dccon/info.json','w') as f:
         f.write(json.dumps(dccon_data['info'], ensure_ascii=False))
     
