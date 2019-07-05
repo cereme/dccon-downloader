@@ -74,7 +74,7 @@ export default class App extends React.Component {
         </div>
         <div className="Download-conatiner">
           <span> 디씨콘 번호 </span>
-          <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}}></input>
+          <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
           <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
             {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
           </button>
