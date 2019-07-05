@@ -42,7 +42,12 @@ def zip_dccon(name):
 
 def lambda_handler(event, context):
     dccon_num = event['dccon_num']
-    data = get_dccon_data(dccon_num)
+    try:
+        data = get_dccon_data(dccon_num)
+    except json.JSONDecodeError:
+        return {
+            'statusCode': 400
+        }
     title = data["info"]["title"]
     save_dccon(data)
     zip_dccon(title)
