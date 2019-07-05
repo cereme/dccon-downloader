@@ -18,21 +18,21 @@ def get_dccon_data(dccon_num):
 def save_dccon(dccon_data):
     url = "https://dcimg5.dcinside.com/dccon.php"
     headers = {'referer': 'https://dccon.dcinside.com/'}
-    os.mkdir(f'./dccon')
-    with open(f'./dccon/info.json','w') as f:
+    os.mkdir(f'/tmp/dccon')
+    with open(f'/tmp/dccon/info.json','w') as f:
         f.write(json.dumps(dccon_data['info'], ensure_ascii=False))
     
     #TODO: better speed with async / multi-thread
     for dccon in dccon_data['detail']:
         query_string = {'no': dccon['path']}
         img_data = requests.request('GET',url,headers=headers,params=query_string)
-        with open(f'./dccon/{dccon["title"]}.{dccon["ext"]}','wb') as img:
+        with open(f'/tmp/dccon/{dccon["title"]}.{dccon["ext"]}','wb') as img:
             img.write(img_data.content)
 
 def zip_dccon(name):
-    with zipfile.ZipFile(f'./{name}.zip', 'w') as _z:
-        for file in os.listdir('./dccon/'):
-            _z.write(f'./dccon/{file}', f'/{file}',compress_type=zipfile.ZIP_DEFLATED)
+    with zipfile.ZipFile(f'/tmp/{name}.zip', 'w') as _z:
+        for file in os.listdir('/tmp/dccon/'):
+            _z.write(f'/tmp/dccon/{file}', f'/{file}',compress_type=zipfile.ZIP_DEFLATED)
 
 def lambda_handler(event, context):
     dccon_num = event['dccon_num']
@@ -42,5 +42,5 @@ def lambda_handler(event, context):
     zip_dccon(title)
     return {
         'statusCode': 200,
-        'body': base64.b64encode(open(f'./{title}.zip', 'rb').read()).decode('utf-8')
+        'body': base64.b64encode(open(f'/tmp/{title}.zip', 'rb').read()).decode('utf-8')
     }
