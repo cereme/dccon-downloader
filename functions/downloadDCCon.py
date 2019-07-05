@@ -30,7 +30,8 @@ def save_dccon(dccon_data):
 
 def zip_dccon(name):
     with zipfile.ZipFile(f'./{name}.zip', 'w') as _z:
-        _z.write('./dccon', compress_type=zipfile.ZIP_DEFLATED)
+        for file in os.listdir('./dccon/'):
+            _z.write(f'./dccon/{file}', f'/{file}',compress_type=zipfile.ZIP_DEFLATED)
 
 def lambda_handler(event, context):
     dccon_num = event['dccon_num']
