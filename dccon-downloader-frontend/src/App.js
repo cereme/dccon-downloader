@@ -8,6 +8,7 @@ export default class App extends React.Component {
        queryText: '',
        dcconNumber: 52640,
        searchResult: [],
+       downloadButtonDisabled: false,
     }
   }
 
@@ -48,14 +49,15 @@ export default class App extends React.Component {
       element.click();
       document.body.removeChild(element);
     }
+    this.setState({downloadButtonDisabled: true});
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/download',{
       method: 'POST',
       body: JSON.stringify({dccon_num: this.state.dcconNumber})
     })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       downloadFile(res.body, res.filename);
+      this.setState({downloadButtonDisabled: false});
     });
   }
   
@@ -73,7 +75,9 @@ export default class App extends React.Component {
         <div className="Download-conatiner">
           <span> 디씨콘 번호 </span>
           <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}}></input>
-          <button onClick={this._onPressDownload}> 다운로드! (8~10초정도 걸림) </button>
+          <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
+            {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
+          </button>
         </div>
       </div>
     )
