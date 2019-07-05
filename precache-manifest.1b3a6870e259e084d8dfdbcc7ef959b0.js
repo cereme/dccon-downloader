@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ef55e7e67c183dc9ad73fce68b879bb0",
+    "revision": "1b4ff6e47dcc6f48a7469857f07ad4cd",
     "url": "/dccon-downloader/index.html"
   },
   {
-    "revision": "8e6344c587a39b95e371",
+    "revision": "a9e7dd5b8cfa470ff52a",
     "url": "/dccon-downloader/static/css/main.06ac78af.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dccon-downloader/static/js/2.65aa1cca.chunk.js"
   },
   {
-    "revision": "8e6344c587a39b95e371",
-    "url": "/dccon-downloader/static/js/main.e29784af.chunk.js"
+    "revision": "a9e7dd5b8cfa470ff52a",
+    "url": "/dccon-downloader/static/js/main.d2dd67e0.chunk.js"
   },
   {
     "revision": "a099d17c9728d8640942",
