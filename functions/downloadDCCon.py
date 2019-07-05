@@ -48,5 +48,6 @@ def lambda_handler(event, context):
     zip_dccon(title)
     return {
         'statusCode': 200,
-        'body': base64.b64encode(open(f'/tmp/{title}.zip', 'rb').read()).decode('utf-8')
+        'body': base64.b64encode(open(f'/tmp/{title}.zip', 'rb').read()).decode('utf-8'),
+        'filename': f'{title}.zip',
     }
