@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import zipfile
 import os
+import base64
 
 def get_dccon_data(dccon_num):
     url = "https://dccon.dcinside.com/index/package_detail"
@@ -37,12 +38,9 @@ def lambda_handler(event, context):
     dccon_num = event['dccon_num']
     data = get_dccon_data(dccon_num)
     title = data["info"]["title"]
-    print(title)
     save_dccon(data)
     zip_dccon(title)
-    #TODO: encode & send
     return {
         'statusCode': 200,
-        'body': None
+        'body': base64.b64encode(open(f'./{title}.zip', 'rb').read()).decode('utf-8')
     }
-    
