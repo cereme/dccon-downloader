@@ -78,7 +78,8 @@ export default class App extends React.Component {
     return(
       <div>
         <LoadingOverlay className="App" active={this.state.loading}
-          spinner text='로딩중...'>
+          spinner text='로딩중... 최대 10초정도 걸립니다'>
+          <span>검색결과를 클릭해서 바로 zip파일로 다운로드 가능</span>
           <div className="Search-conatiner">
             <span> 검색어 </span>
             <input id="searchInput" onKeyPress={event => { if (event.key === 'Enter') this._onPressSearch(); }}
@@ -91,7 +92,7 @@ export default class App extends React.Component {
             <input id="downloadInput" onKeyPress={event => { if (event.key === 'Enter') this._onPressDownload(); }}
             onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
             <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
-              {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
+              {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드!'}
             </button>
           </div>
         </LoadingOverlay>
