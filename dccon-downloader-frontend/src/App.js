@@ -22,14 +22,14 @@ export default class App extends React.Component {
       'action': 'press',
       'value': this.state.queryText,
     });
+    this.setState({loading: true});
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/search',{
       method: 'POST',
       body: JSON.stringify({query_text: this.state.queryText})
     })
     .then(res => res.json())
     .then(res => {
-      console.log(JSON.parse(res.body));
-      this.setState({searchResult: JSON.parse(res.body)});
+      this.setState({searchResult: JSON.parse(res.body), loading: false});
     });
   }
 
