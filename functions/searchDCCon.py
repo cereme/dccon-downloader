@@ -49,6 +49,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps(data, ensure_ascii=False)
     }
-
-res = lambda_handler({'query_text':'뱅드림'},None)
-print(res)
