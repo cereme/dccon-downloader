@@ -35,7 +35,7 @@ export default class App extends React.Component {
     return (
       <div className="SearchResult-container">
         {props.items.map((item, index) => (
-          <div key={item.num} className="SearchResult-element">
+          <div key={item.num} className="SearchResult-element" onClick={()=>{this._downloadFile(item.num)}}>
             <img src={`data:image/jpg;base64,${item.thumbnail}`} alt={item.name}/>
             <span>{item.name}</span>
           </div>
