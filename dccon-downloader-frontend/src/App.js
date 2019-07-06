@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import ReactGA from 'react-ga';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -13,6 +15,11 @@ export default class App extends React.Component {
   }
 
   _onPressSearch = () =>{
+    ReactGA.event({
+      'category': 'search',
+      'action': 'press',
+      'value': this.state.queryText,
+    });
     alert('🚧작업중');
     return;
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/search',{
@@ -49,6 +56,11 @@ export default class App extends React.Component {
       element.click();
       document.body.removeChild(element);
     }
+    ReactGA.event({
+      'category': 'download',
+      'action': 'press',
+      'value': this.state.dcconNumber,
+    });
     this.setState({downloadButtonDisabled: true});
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/download',{
       method: 'POST',
