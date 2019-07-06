@@ -44,16 +44,17 @@ export default class App extends React.Component {
     );
   }
 
+  _downloadFile = (data, filename) => {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;base64,' + data);
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
   _onPressDownload = () => {
-    const downloadFile = (data, filename) => {
-      var element = document.createElement('a');
-      element.setAttribute('href', 'data:text/plain;base64,' + data);
-      element.setAttribute('download', filename);
-      element.style.display = 'none';
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-    }
     ReactGA.event({
       'category': 'download',
       'action': 'press',
@@ -67,6 +68,7 @@ export default class App extends React.Component {
     .then(res => res.json())
     .then(res => {
       downloadFile(res.body, res.filename);
+      this._downloadFile(res.body, res.filename);
       this.setState({downloadButtonDisabled: false});
     });
   }
