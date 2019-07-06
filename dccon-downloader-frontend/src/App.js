@@ -37,7 +37,7 @@ export default class App extends React.Component {
     return (
       <div className="SearchResult-container">
         {props.items.map((item, index) => (
-          <div key={item.num} className="SearchResult-element" onClick={()=>{this._downloadFile(item.num)}}>
+          <div key={item.num} className="SearchResult-element" onClick={()=>{props.downloader(item.num)}}>
             <img src={`data:image/jpg;base64,${item.thumbnail}`} alt={item.name}/>
             <span>{item.name}</span>
           </div>
@@ -84,7 +84,7 @@ export default class App extends React.Component {
             <input id="searchInput" onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
             <button onClick={this._onPressSearch}> 검색! </button>
           </div>
-          <this.SearchResultList items={this.state.searchResult}/>
+          <this.SearchResultList items={this.state.searchResult} downloader={this._downloadFile}/>
           <div className="Download-conatiner">
             <span> 디씨콘 번호 </span>
             <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
