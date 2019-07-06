@@ -15,7 +15,7 @@ contact : bsy@breadlab.net
   - [x] Web Frontend 만들기
   - [x] AWS Lambda 빠르게 만들기
     - [ ] aiohttp 사용해보기
-    * ThreadPool을 사용해서 search는 상당히 빨라졌는데, download는 거의 개선이 없었습니다.
+    * ThreadPool을 사용했는데, local에서는 속도가 잘 나왔지만 Lambda에서는 속도 개선이 거의 없었습니다..
   - [x] Web Frontend 검색기능 만들기
   - [ ] Web Frontend 이쁘게 만들기
 
