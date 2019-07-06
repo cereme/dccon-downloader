@@ -4,6 +4,7 @@ import requests
 import zipfile
 import os
 import base64
+from multiprocessing.dummy import Pool as ThreadPool 
 
 def get_dccon_data(dccon_num):
     url = "https://dccon.dcinside.com/index/package_detail"
@@ -28,12 +29,13 @@ def save_dccon(dccon_data):
     with open(f'/tmp/dccon/info.json','w') as f:
         f.write(json.dumps(dccon_data['info'], ensure_ascii=False))
     
-    #TODO: better speed with async / multi-thread
-    for dccon in dccon_data['detail']:
+    def download_single_dccon(dccon):
         query_string = {'no': dccon['path']}
         img_data = requests.request('GET',url,headers=headers,params=query_string)
         with open(f'/tmp/dccon/{dccon["title"]}.{dccon["ext"]}','wb') as img:
             img.write(img_data.content)
+    pool = ThreadPool(4) 
+    pool.map(download_single_dccon,dccon_data['detail'])
 
 def zip_dccon(name):
     with zipfile.ZipFile(f'/tmp/{name}.zip', 'w') as _z:
