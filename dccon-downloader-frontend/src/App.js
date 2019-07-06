@@ -81,13 +81,15 @@ export default class App extends React.Component {
           spinner text='로딩중...'>
           <div className="Search-conatiner">
             <span> 검색어 </span>
-            <input id="searchInput" onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
+            <input id="searchInput" onKeyPress={event => { if (event.key === 'Enter') this._onPressSearch(); }}
+            onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
             <button onClick={this._onPressSearch}> 검색! </button>
           </div>
           <this.SearchResultList items={this.state.searchResult} downloader={this._downloadFile}/>
           <div className="Download-conatiner">
             <span> 디씨콘 번호 </span>
-            <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
+            <input id="downloadInput" onKeyPress={event => { if (event.key === 'Enter') this._onPressDownload(); }}
+            onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
             <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
               {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
             </button>
