@@ -1,6 +1,13 @@
 import json
 from bs4 import BeautifulSoup 
 import requests
+import re
+import base64
+
+def get_base64_thumbnail(url):
+    headers = {'referer': 'https://dccon.dcinside.com/'}
+    img_data = requests.request('GET',url,headers=headers)
+    return base64.b64encode(img_data.content).decode('utf-8')
 
 def get_search_result(query_text, offset=0):
     page = 1 + offset
@@ -10,7 +17,8 @@ def get_search_result(query_text, offset=0):
     dccons = bs.findAll('li','div_package')
     for dccon in dccons:
         num = dccon.get('package_idx')
-        thumbnail = dccon.find('img','thumb_img').get('src')
+        thumbnail_url = dccon.find('img','thumb_img').get('src')
+        thumbnail = get_base64_thumbnail(thumbnail_url)
         name = dccon.find('strong','dcon_name').get_text()
         seller = dccon.find('span','dcon_seller').get_text()
         search_result.append({

@@ -20,8 +20,6 @@ export default class App extends React.Component {
       'action': 'press',
       'value': this.state.queryText,
     });
-    alert('🚧작업중');
-    return;
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/search',{
       method: 'POST',
       body: JSON.stringify({query_text: this.state.queryText})
@@ -35,11 +33,11 @@ export default class App extends React.Component {
 
   SearchResultList(props) {
     return (
-      <div>
+      <div className="SearchResult-container">
         {props.items.map((item, index) => (
-          <div key={index}>
-            {item.name}
-            <img src={item.thumbnail} alt={item.name}/>
+          <div key={item.num} className="SearchResult-element">
+            <img src={`data:image/jpg;base64,${item.thumbnail}`} alt={item.name}/>
+            <span>{item.name}</span>
           </div>
         ))}
       </div>
@@ -79,11 +77,9 @@ export default class App extends React.Component {
         <div className="Search-conatiner">
           <span> 검색어 </span>
           <input id="searchInput" onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
-          <button onClick={this._onPressSearch} disabled> 검색! </button>
+          <button onClick={this._onPressSearch}> 검색! </button>
         </div>
-        <div className="SearchResult-container">
-          <this.SearchResultList items={this.state.searchResult}/>
-        </div>
+        <this.SearchResultList items={this.state.searchResult}/>
         <div className="Download-conatiner">
           <span> 디씨콘 번호 </span>
           <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
