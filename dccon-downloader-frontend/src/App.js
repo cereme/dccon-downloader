@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import ReactGA from 'react-ga';
+import LoadingOverlay from 'react-loading-overlay'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class App extends React.Component {
        dcconNumber: 52640,
        searchResult: [],
        downloadButtonDisabled: false,
+       loading: false,
     }
   }
 
@@ -70,29 +72,32 @@ export default class App extends React.Component {
       'action': 'press',
       'value': this.state.dcconNumber,
     });
-    this.setState({downloadButtonDisabled: true});
+    this.setState({loading: true});
     this._downloadFile(this.state.dcconNumber)
     .then(()=>{
-      this.setState({downloadButtonDisabled: false});
+      this.setState({loading: false});
     })
   }
   
   render(){
     return(
-      <div className="App">
-        <div className="Search-conatiner">
-          <span> 검색어 </span>
-          <input id="searchInput" onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
-          <button onClick={this._onPressSearch}> 검색! </button>
-        </div>
-        <this.SearchResultList items={this.state.searchResult}/>
-        <div className="Download-conatiner">
-          <span> 디씨콘 번호 </span>
-          <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
-          <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
-            {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
-          </button>
-        </div>
+      <div>
+        <LoadingOverlay className="App" active={this.state.loading}
+          spinner text='로딩중...'>
+          <div className="Search-conatiner">
+            <span> 검색어 </span>
+            <input id="searchInput" onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
+            <button onClick={this._onPressSearch}> 검색! </button>
+          </div>
+          <this.SearchResultList items={this.state.searchResult}/>
+          <div className="Download-conatiner">
+            <span> 디씨콘 번호 </span>
+            <input id="downloadInput" onChange={(e)=>{this.setState({dcconNumber: e.target.value})}} placeholder={52640}/>
+            <button onClick={this._onPressDownload} disabled={this.state.downloadButtonDisabled}> 
+              {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드! (8~10초정도 걸림)'}
+            </button>
+          </div>
+        </LoadingOverlay>
       </div>
     )
   }

@@ -1,9 +1,9 @@
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 10%;
+  padding-top: 10vh;
+  height: 100vh;
 }
 
 .SearchResult-container{
