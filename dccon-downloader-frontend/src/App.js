@@ -47,22 +47,21 @@ export default class App extends React.Component {
   }
 
   _downloadFile = (dccon_num) => {
-    return new Promise(resolve=>{
-      fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/download',{
-        method: 'POST',
-        body: JSON.stringify({dccon_num})
-      })
-      .then(res => res.json())
-      .then(res => {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;base64,' + res.body);
-        element.setAttribute('download', res.filename);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-        resolve();
-      });
+    this.setState({loading: true});
+    fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/download',{
+      method: 'POST',
+      body: JSON.stringify({dccon_num})
+    })
+    .then(res => res.json())
+    .then(res => {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;base64,' + res.body);
+      element.setAttribute('download', res.filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+      this.setState({loading: false});
     });
   }
 
@@ -72,11 +71,7 @@ export default class App extends React.Component {
       'action': 'press',
       'value': this.state.dcconNumber,
     });
-    this.setState({loading: true});
-    this._downloadFile(this.state.dcconNumber)
-    .then(()=>{
-      this.setState({loading: false});
-    })
+    this._downloadFile(this.state.dcconNumber);
   }
   
   render(){
