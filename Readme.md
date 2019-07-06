@@ -13,7 +13,9 @@ contact : bsy@breadlab.net
   - [x] AWS Lambda에서 save(as zip)하기
   - [x] AWS Lambda에서 file response하기
   - [x] Web Frontend 만들기
-  - [ ] AWS Lambda 빠르게 만들기
+  - [x] AWS Lambda 빠르게 만들기
+    - [ ] aiohttp 사용해보기
+    * ThreadPool을 사용해서 search는 상당히 빨라졌는데, download는 거의 개선이 없었습니다.
   - [x] Web Frontend 검색기능 만들기
   - [ ] Web Frontend 이쁘게 만들기
 
