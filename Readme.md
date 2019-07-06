@@ -14,7 +14,7 @@ contact : bsy@breadlab.net
   - [x] AWS Lambda에서 file response하기
   - [x] Web Frontend 만들기
   - [ ] AWS Lambda 빠르게 만들기
-  - [ ] Web Frontend 검색기능 만들기
+  - [x] Web Frontend 검색기능 만들기
   - [ ] Web Frontend 이쁘게 만들기
 
 ## (previous) Usage
