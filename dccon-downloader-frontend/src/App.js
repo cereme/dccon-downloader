@@ -95,6 +95,7 @@ export default class App extends React.Component {
               {this.state.downloadButtonDisabled? '다운로드중...' : '다운로드!'}
             </button>
           </div>
+          <span> Github Repository: <a href="https://github.com/cereme/dccon-downloader" target="_blank">https://github.com/cereme/dccon-downloader</a> </span>
         </LoadingOverlay>
       </div>
     )
