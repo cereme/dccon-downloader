@@ -20,7 +20,7 @@ export default class App extends React.Component {
     ReactGA.event({
       'category': 'search',
       'action': 'press',
-      'value': this.state.queryText,
+      'label': this.state.queryText,
     });
     this.setState({loading: true});
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/search',{
@@ -69,7 +69,7 @@ export default class App extends React.Component {
     ReactGA.event({
       'category': 'download',
       'action': 'press',
-      'value': this.state.dcconNumber,
+      'label': this.state.dcconNumber,
     });
     this._downloadFile(this.state.dcconNumber);
   }
