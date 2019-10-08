@@ -4,7 +4,8 @@ import requests
 import zipfile
 import os
 import base64
-from multiprocessing.dummy import Pool as ThreadPool 
+import aiohttp
+import asyncio
 
 def get_dccon_data(dccon_num):
     url = "https://dccon.dcinside.com/index/package_detail"
@@ -29,13 +30,16 @@ def save_dccon(dccon_data):
     with open(f'/tmp/dccon/info.json','w') as f:
         f.write(json.dumps(dccon_data['info'], ensure_ascii=False))
     
-    def download_single_dccon(dccon):
+    async def download_single_dccon(dccon):
         query_string = {'no': dccon['path']}
-        img_data = requests.request('GET',url,headers=headers,params=query_string)
-        with open(f'/tmp/dccon/{dccon["title"]}.{dccon["ext"]}','wb') as img:
-            img.write(img_data.content)
-    pool = ThreadPool(4) 
-    pool.map(download_single_dccon,dccon_data['detail'])
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers, params=query_string) as res:
+                with open(f'/tmp/dccon/{dccon["title"]}.{dccon["ext"]}','wb') as img:
+                    img.write(await res.read())
+    
+    dccon_requests = [download_single_dccon(dccon) for dccon in dccon_data['detail']]
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(dccon_requests))
 
 def zip_dccon(name):
     with zipfile.ZipFile(f'/tmp/{name}.zip', 'w') as _z:
