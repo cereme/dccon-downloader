@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+import { Layout, Card, Typography, Icon, Spin, Button } from 'antd';
 import ReactGA from 'react-ga';
 import LoadingOverlay from 'react-loading-overlay'
 
@@ -37,10 +38,18 @@ export default class App extends React.Component {
     return (
       <div className="SearchResult-container">
         {props.items.map((item, index) => (
-          <div key={item.num} className="SearchResult-element" onClick={()=>{props.downloader(item.num)}}>
-            <img src={`data:image/jpg;base64,${item.thumbnail}`} alt={item.name}/>
+          <Card
+            className="search-result-card"
+            type="flex"
+            hoverable
+            style={{ width: 160 }}
+            key={item.num}
+            cover={ <img src={`data:image/jpg;base64,${item.thumbnail}`} alt={item.name}/>}
+            bodyStyle={{textAlign: 'left', width: '100%', padding: '12px'}}
+            onClick={()=>{props.downloader(item.num)}}
+          >
             <span>{item.name}</span>
-          </div>
+          </Card>
         ))}
       </div>
     );
