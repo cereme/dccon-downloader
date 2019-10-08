@@ -12,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 80%;
+  justify-content: center;
 }
 
 .search-result-card{
@@ -21,4 +22,13 @@
   align-items: center;
   width: 160px;
   margin: 0.5em;
+}
+
+@media screen and (max-width: 768px) {
+  .SearchResult-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
 }
