@@ -78,6 +78,15 @@ export default class App extends React.Component {
     return(
       <div>
         <LoadingOverlay className="App" active={this.state.loading}
+          styles={{
+            content: (base) => ({
+              ...base,
+              position: 'fixed',
+              top: '40%',
+              left: '40%',
+              margin: 'auto',
+            })
+          }}
           spinner text='로딩중... 최대 10초정도 걸립니다'>
           <span>검색결과를 클릭해서 바로 zip파일로 다운로드 가능</span>
           <div className="Search-conatiner">
