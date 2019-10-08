@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { Layout, Card, Typography, Icon, Spin, Button } from 'antd';
+import { Input, Card } from 'antd';
 import ReactGA from 'react-ga';
 import LoadingOverlay from 'react-loading-overlay'
 
@@ -17,16 +17,16 @@ export default class App extends React.Component {
     }
   }
 
-  _onPressSearch = () =>{
+  _search = (queryText) =>{
     ReactGA.event({
       'category': 'search',
       'action': 'press',
-      'label': this.state.queryText,
+      'label': queryText,
     });
     this.setState({loading: true});
     fetch('https://7d2i8oa48i.execute-api.ap-northeast-2.amazonaws.com/prod/search',{
       method: 'POST',
-      body: JSON.stringify({query_text: this.state.queryText})
+      body: JSON.stringify({query_text: queryText})
     })
     .then(res => res.json())
     .then(res => {
@@ -99,10 +99,12 @@ export default class App extends React.Component {
           spinner text='로딩중... 최대 10초정도 걸립니다'>
           <span>검색결과를 클릭해서 바로 zip파일로 다운로드 가능</span>
           <div className="Search-conatiner">
-            <span> 검색어 </span>
-            <input id="searchInput" onKeyPress={event => { if (event.key === 'Enter') this._onPressSearch(); }}
-            onChange={(e)=>{this.setState({queryText: e.target.value})}}></input>
-            <button onClick={this._onPressSearch}> 검색! </button>
+            <Input.Search
+              placeholder="검색어"
+              enterButton="검색!"
+              size="large"
+              onSearch={value => this._search(value)}
+            />
           </div>
           <this.SearchResultList items={this.state.searchResult} downloader={this._downloadFile}/>
           <div className="Download-conatiner">
