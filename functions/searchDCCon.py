@@ -44,7 +44,16 @@ def get_all_search_result(query_text):
 
 def lambda_handler(event, context):
     query_text = event['query_text']
-    data = get_all_search_result(query_text)
+    try:
+        if 'offset' in event:
+            data = get_search_result(query_text, int(event['offset']))
+        else:
+            data = get_all_search_result(query_text)
+    except ValueError:
+        return {
+            'statusCode': 400,
+            'body': f'Bad parameters: {json.dumps(event)}'
+        }
     return {
         'statusCode': 200,
         'body': json.dumps(data, ensure_ascii=False)
