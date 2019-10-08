@@ -12,10 +12,12 @@ contact : bsy@breadlab.net
   - [x] AWS Lambda에서 search하기
   - [x] AWS Lambda에서 save(as zip)하기
   - [x] AWS Lambda에서 file response하기
+  - [ ] AWS Lambda에서 6MB가 넘는 response 처리하기
+    - [ ] S3에 저장하고, Object Expiration 설정하기..?
   - [x] Web Frontend 만들기
   - [x] AWS Lambda 빠르게 만들기
-    - [ ] aiohttp 사용해보기
-    * ThreadPool을 사용했는데, local에서는 속도가 잘 나왔지만 Lambda에서는 속도 개선이 거의 없었습니다..
+    - [x] aiohttp 사용해보기
+    * ThreadPool은 Lambda의 Limit도 있고, 완전하지 않은 해결책인 것 같다.
   - [x] Web Frontend 검색기능 만들기
   - [ ] Web Frontend 이쁘게 만들기
     - [ ] AntDesign 써서 이쁘게 만들기
