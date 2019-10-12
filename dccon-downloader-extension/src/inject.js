@@ -1,4 +1,6 @@
-var onClickDownload = () => {
+var onClickDownload = (e) => {
+  document.querySelector('button.dccon-downloader').innerText = "다운로드중..."
+  document.querySelector('button.dccon-downloader').setAttribute('disabled', "true")
   const title = document.querySelector('div.info_viewtxt h4.font_blue').innerText
   let list = Array.from(document.querySelectorAll('ul.dccon_list img'));
   var zip = new JSZip();
@@ -32,6 +34,8 @@ var onClickDownload = () => {
     zip.generateAsync({type:"blob"})
     .then(function(content) {
         const zipUrl = URL.createObjectURL(content);
+        document.querySelector('button.dccon-downloader').innerText = "다운받기"
+        document.querySelector('button.dccon-downloader').setAttribute('disabled', "false")
         chrome.runtime.sendMessage({title, zipUrl});
     });
   })
