@@ -58,8 +58,8 @@ document.addEventListener("click", function(e) {
   var observer = new MutationObserver(function (mutations, me) {
     let dccon_window = document.getElementsByClassName('dccon_popinfo')
     if (dccon_window) {
-      let viewtxt_cont = document.querySelector('.viewtxt_cont');
-      viewtxt_cont.insertAdjacentElement("afterend",download_button)
+      let purchase_button = document.querySelector('.btn_blue.small.btn_buy')
+      purchase_button.insertAdjacentElement("beforebegin", download_button)
       me.disconnect();
       return;
     }
