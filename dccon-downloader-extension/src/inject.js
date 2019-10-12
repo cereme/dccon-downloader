@@ -42,7 +42,8 @@ var onClickDownload = () => {
 
 document.addEventListener("click", function(e) {
   if( (e.target.className !== 'btn_dccon_infoview div_package') &&
-      (e.target.className !== 'dcon_frame blue_brd') ) return;
+      (e.target.className !== 'dcon_frame blue_brd') &&
+      (e.target.className !== 'dcon_frame red_brd') ) return;
 
   let download_button = document.createElement("button")
   download_button.setAttribute('type', 'button')
