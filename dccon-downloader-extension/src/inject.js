@@ -1,6 +1,5 @@
 var onClickDownload = () => {
   const title = document.querySelector('div.info_viewtxt h4.font_blue').innerText
-  console.log(title);
   let list = Array.from(document.querySelectorAll('ul.dccon_list img'));
   var zip = new JSZip();
   const getExt = (char) => {
@@ -16,7 +15,6 @@ var onClickDownload = () => {
     })
     .then( res => {
       ext = res.headers.get("Content-Type");
-      console.log(ext);
       return res.blob();
     })
     .then(blob => new Promise( (resolve, reject) => {
