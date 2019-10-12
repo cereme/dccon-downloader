@@ -1,0 +1,35 @@
+{
+  "name": "dccon downloader",
+  "version": "0.0.1",
+  "description": "dccinside dccon downloader",
+  "manifest_version": 2,
+  "author": "cereme",
+  "permissions": [
+      "*://*.dcinside.com/*",
+      "*://dcinside.com/*",
+      "downloads"
+  ],
+  "background": {
+    "scripts": [
+      "src/background.js"
+    ]
+  },
+  "web_accessible_resources": [
+    "src/jszip.min.js"
+  ],
+  "content_scripts": [{
+      "matches": [
+          "*://*.dcinside.com/*",
+          "*://dcinside.com/*"
+      ],
+      "all_frames": true,
+      "js": [
+          "src/inject.js",
+          "src/jszip.min.js"
+      ]
+    }
+  ],
+  "browser_action": {
+      "default_popup": "src/index.html"
+  }
+}
