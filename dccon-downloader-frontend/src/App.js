@@ -65,7 +65,7 @@ export default class App extends React.Component {
     .then(res => {
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;base64,' + res.body);
-      element.setAttribute('download', res.filename);
+      element.setAttribute('download', dccon_num.toString());
       element.style.display = 'none';
       document.body.appendChild(element);
       element.click();
@@ -82,6 +82,13 @@ export default class App extends React.Component {
     });
     this._downloadFile(this.state.dcconNumber);
   }
+
+  _onPressChromeWebstore = () => {
+    ReactGA.event({
+      'category': 'extension-transition',
+      'action': 'press'
+    })
+  }
   
   render(){
     return(
@@ -97,6 +104,10 @@ export default class App extends React.Component {
             })
           }}
           spinner text='로딩중...'>
+          <a onClick={this._onPressChromeWebstore} href="https://chrome.google.com/webstore/detail/dccon-downloader/giaepkpgacklikcdgcoiniapegeakgad">
+            <img src="/ChromeWebStore_BadgeWBorder_v2_340x96.png" alt="Download at Chrome webstore"/>
+          </a>
+          <p> 크롬 확장프로그램이 나왔습니다! 이제 댓글에서, 디시콘 페이지에서 바로바로 다운로드하세요! </p>
           <span>검색결과를 클릭해서 바로 zip파일로 다운로드 가능</span>
           <div className="Search-conatiner">
             <Input.Search
