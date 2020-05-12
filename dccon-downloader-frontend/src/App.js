@@ -65,7 +65,7 @@ export default class App extends React.Component {
     .then(res => {
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;base64,' + res.body);
-      element.setAttribute('download', dccon_num.toString());
+      element.setAttribute('download', res.filename);
       element.style.display = 'none';
       document.body.appendChild(element);
       element.click();
