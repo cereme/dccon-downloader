@@ -13,7 +13,15 @@ var onClickDownload = (e) => {
     const {title, src} = dccon;
     let ext = "gif";
     return fetch(src,{
-      headers: {'referer': 'https://dccon.dcinside.com/' }
+      mode: 'no-cors',
+      headers: {
+        'accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        'referer': window.location.href,
+        'host': 'dcimg5.dcinside.com', 
+        'Sec-Fetch-Dest': 'image',
+        'Sec-Fetch-Mode': 'no-cors',
+        'Sec-Fetch-Site': 'same-site',
+      },
     })
     .then( res => {
       ext = res.headers.get("Content-Type");
